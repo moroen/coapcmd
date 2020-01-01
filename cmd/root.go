@@ -27,6 +27,8 @@ import (
 
 var cfgFile string
 
+var ident, key string
+
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "coapcmd",
@@ -65,6 +67,9 @@ func init() {
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 	// rootCmd.Flags().String("ident", "", "Identity")
 	// rootCmd.Flags().String("key", "", "Key")
+
+	rootCmd.Flags().StringVar(&ident, "ident", "", "Identity")
+	rootCmd.Flags().StringVar(&key, "key", "", "Pre-shared key")
 }
 
 // initConfig reads in config file and ENV variables if set.
