@@ -18,8 +18,14 @@ type Message struct {
 	Result string
 }
 
-func request(uri, payload string) (status, response string) {
+const GET = 1
+const PUT = 2
+const POST = 3
+
+func request(method int, uri, payload string) (status, response string) {
 	var req coap.RequestParams
+	var resp []byte
+	var err error
 
 	scheme, host, port, path, err := processURI(uri)
 	if err != nil {
@@ -30,10 +36,9 @@ func request(uri, payload string) (status, response string) {
 		}
 	}
 
-	switch scheme {
-	case "coap":
-		break
-	case "coaps":
+	req = coap.RequestParams{Host: host, Port: port, Uri: path}
+
+	if scheme == "coaps" {
 		if ident == "" {
 			printResponse("MissingIdent", "")
 			return
@@ -43,10 +48,24 @@ func request(uri, payload string) (status, response string) {
 			printResponse("MissingKey", "")
 			return
 		}
-		req = coap.RequestParams{Host: host, Port: port, Uri: path, Id: ident, Key: key}
+
+		req.Id = ident
+		req.Key = key
 	}
 
-	resp, err := coap.GetRequest(req)
+	if payload != "" {
+		req.Payload = payload
+	}
+
+	switch method {
+	case GET:
+		resp, err = coap.GetRequest(req)
+	case PUT:
+		resp, err = coap.PutRequest((req))
+	case POST:
+		resp, err = coap.PostRequest((req))
+	}
+
 	status = errorToStatus(err)
 	return status, string(resp)
 }
@@ -74,6 +93,8 @@ func errorToStatus(err error) string {
 		return "HandshakeError"
 	case coap.Unauthorized:
 		return "Unauthorized"
+	case coap.MethodNotAllowed:
+		return "MethodNodAllowed"
 	}
 	return "UnknownStatus"
 }

@@ -16,7 +16,6 @@ limitations under the License.
 package cmd
 
 import (
-	coap "github.com/moroen/gocoap"
 	"github.com/spf13/cobra"
 )
 
@@ -32,37 +31,7 @@ This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Args: cobra.ExactArgs(2),
 	Run: func(cmd *cobra.Command, args []string) {
-		var req coap.RequestParams
-
-		scheme, host, port, path, err := processURI(args[0])
-		if err != nil {
-			if err == MalformedUriError {
-				printResponse("MalformedUri", "")
-				return
-			} else {
-				panic(err.Error())
-			}
-		}
-
-		switch scheme {
-		case "coap":
-			break
-		case "coaps":
-			if ident == "" {
-				printResponse("MissingIdent", "")
-				return
-			}
-
-			if key == "" {
-				printResponse("MissingKey", "")
-				return
-			}
-			req = coap.RequestParams{Host: host, Port: port, Uri: path, Id: ident, Key: key}
-		}
-
-		resp, err := coap.GetRequest(req)
-		status := errorToStatus(err)
-		printResponse(status, string(resp))
+		printResponse(request(PUT, args[0], args[1]))
 	},
 }
 

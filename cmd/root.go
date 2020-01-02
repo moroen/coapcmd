@@ -28,6 +28,7 @@ import (
 var cfgFile string
 
 var ident, key string
+var noStatus bool
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
@@ -68,8 +69,9 @@ func init() {
 	// rootCmd.Flags().String("ident", "", "Identity")
 	// rootCmd.Flags().String("key", "", "Key")
 
-	rootCmd.Flags().StringVar(&ident, "ident", "", "Identity")
-	rootCmd.Flags().StringVar(&key, "key", "", "Pre-shared key")
+	rootCmd.PersistentFlags().StringVar(&ident, "ident", "", "Identity")
+	rootCmd.PersistentFlags().StringVar(&key, "key", "", "Pre-shared key")
+	rootCmd.PersistentFlags().BoolVar(&noStatus, "nostatus", true, "Hide output of status")
 }
 
 // initConfig reads in config file and ENV variables if set.

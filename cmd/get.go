@@ -26,7 +26,7 @@ var getCmd = &cobra.Command{
 	Long:  ``,
 	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
-		printResponse(request(args[0], ""))
+		printResponse(request(GET, args[0], ""))
 	},
 }
 
