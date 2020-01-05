@@ -1,14 +1,14 @@
 package cmd
 
 import (
-	coap "github.com/moroen/gocoap"
-	"net"
+	"encoding/json"
 	"errors"
+	"fmt"
+	"net"
 	"net/url"
 	"strconv"
-	"fmt"
-	"encoding/json"
-	
+
+	coap "github.com/moroen/gocoap"
 )
 
 var MalformedUriError = errors.New("Malformed uri")
@@ -71,7 +71,7 @@ func request(method int, uri, payload string) (status, response string) {
 }
 
 func printResponse(status, result string) {
-	res := Message{Status: status, Result: result }
+	res := Message{Status: status, Result: result}
 
 	jsonObj, err := json.Marshal(res)
 	if err != nil {
@@ -94,7 +94,7 @@ func errorToStatus(err error) string {
 	case coap.Unauthorized:
 		return "Unauthorized"
 	case coap.MethodNotAllowed:
-		return "MethodNodAllowed"
+		return "MethodNotAllowed"
 	}
 	return "UnknownStatus"
 }
