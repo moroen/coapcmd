@@ -36,4 +36,15 @@ steps:
     fi
     go build -v .
   workingDirectory: '$(modulePath)'
-  displayName: 'Get dependencies, then build'
+  displayName: 'Get dependencies'
+
+- script: |
+    go build -v .
+  workingDirectory: '$(modulePath)'
+  displayName: 'Build'
+
+- task: PublishPipelineArtifact@0
+  inputs:
+    artifactName: 'coapcmd-linux-x86_64'
+    targetPath: 'dist'
+  displayName: "Publish artefacts"
