@@ -19,27 +19,32 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// getCmd represents the get command
-var getCmd = &cobra.Command{
-	Use:   "get URI",
-	Short: "Send a COAP GET request",
-	Long:  ``,
-	Args:  cobra.ExactArgs(1),
+// putCmd represents the put command
+var putCmd = &cobra.Command{
+	Use:   "put URI PAYLOAD",
+	Short: "Send a COAP PUT request",
+	Long: `A longer description that spans multiple lines and likely contains examples
+and usage of using your command. For example:
+
+Cobra is a CLI library for Go that empowers applications.
+This application is a tool to generate the needed files
+to quickly create a Cobra application.`,
+	Args: cobra.ExactArgs(2),
 	Run: func(cmd *cobra.Command, args []string) {
-		printResponse(request(GET, args[0], ""))
+		printResponse(request(PUT, args[0], args[1]))
 	},
 }
 
 func init() {
-	rootCmd.AddCommand(getCmd)
-
-	// Here you will define your flags and configuration settings.
+	// putCmd.Flags().StringVar(&ident, "ident", "", "Identity")
+	// putCmd.Flags().StringVar(&key, "key", "", "Pre-shared key")
+	rootCmd.AddCommand(putCmd)
 
 	// Cobra supports Persistent Flags which will work for this command
 	// and all subcommands, e.g.:
-	// getCmd.PersistentFlags().String("foo", "", "A help for foo")
+	// putCmd.PersistentFlags().String("foo", "", "A help for foo")
 
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
-	// getCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	// putCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
