@@ -16,7 +16,7 @@ limitations under the License.
 package main
 
 import (
-	"github.com/moroencoapcmd/cmd"
+	"github.com/moroen/coapcmd/cmd"
 )
 
 func main() {
