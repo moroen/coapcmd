@@ -46,5 +46,5 @@ steps:
 - task: PublishPipelineArtifact@0
   inputs:
     artifactName: 'coapcmd-linux-x86_64'
-    targetPath: 'dist'
+    targetPath: '$(modulePath)'
   displayName: "Publish artefacts"
