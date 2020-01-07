@@ -14,6 +14,7 @@ variables:
   GOROOT: '/usr/local/go1.11' # Go installation path
   GOPATH: '$(system.defaultWorkingDirectory)/gopath' # Go workspace path
   modulePath: '$(GOPATH)/src/github.com/$(build.repository.name)' # Path to the module's code
+  distPath: '$(system.defaultWorkingDirectory)/dist'
 
 steps:
 - script: |
@@ -43,8 +44,15 @@ steps:
   workingDirectory: '$(modulePath)'
   displayName: 'Build'
 
+- script: |
+    mkdir -p $(distPath)
+    cp $(build.repository.name) $(distPath)
+
+  workingDirectory: '$(modulePath)'
+  displayName: 'Build'
+
 - task: PublishPipelineArtifact@0
   inputs:
     artifactName: 'coapcmd-linux-x86_64'
-    targetPath: '$(modulePath)'
+    targetPath: '$(distPath)'
   displayName: "Publish artefacts"
