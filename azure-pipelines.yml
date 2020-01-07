@@ -46,7 +46,7 @@ steps:
 
 - script: |
     mkdir -p $(distPath)
-    cp $(build.repository.name) $(distPath)
+    cp coapcmd* $(distPath)
 
   workingDirectory: '$(modulePath)'
   displayName: 'Build'
