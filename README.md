@@ -11,12 +11,13 @@ $ go get -v github.com/moroen/coapcmd
 ```
 This will install the coapcmd command in $GOPATH/bin
 
-## Compiling without a golang development enviroment:
+## Compiling outside a golang development enviroment:
 ```shell
 $ mkdir coapcmd
 $ cd coapcmd
-$ env go get -v github.com/moroen/coapcmd
+$ env GOPATH=`pwd` go get -v github.com/moroen/coapcmd
 ```
+
 This will install the coapcmd command in the created bin-directory
 
 ## Using the provided install-script:
@@ -27,7 +28,7 @@ $ bash install_coapcmd.sh
 ```
 
 ## Cross-compiling for another target architecture:
-Requires a golang development enviroment
+Requires compiling within a golang development enviroment
 ```shell
 $ cd $GOPATH
 $ git clone https://github.com/moroen/coapcmd.git src/coapcmd
@@ -39,7 +40,7 @@ $ go get -v
 ```shell
 $ go get -v github.com/inconshreveable/mousetrap
 $ env GOOS=windows GOARCH=amd64 go build # window 64bit
-$ env GOOS=windows GOARCH=386 go build # window 64bit
+$ env GOOS=windows GOARCH=386 go build # window 32bit
 ```
 
 ### Linux/arm
