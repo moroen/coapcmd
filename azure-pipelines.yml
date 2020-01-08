@@ -79,6 +79,6 @@ steps:
 
 - task: PublishPipelineArtifact@0
   inputs:
-    artifactName: 'coapcmd-$(goos)- $(archlabel)'
+    artifactName: 'coapcmd-$(goos)-$(archlabel)'
     targetPath: '$(distPath)'
   displayName: "Publish artifact"
