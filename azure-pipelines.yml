@@ -23,26 +23,31 @@ strategy:
       goarch: "amd64"
       archlabel: "x86_64"
       goarm: "7"
+      fileext: ""
     windows_x86_64:
       goos: "windows"
       goarch: "amd64"
       archlabel: "x86_64"
       goarm: "7"
+      fileext: ".exe"
     macos_x86_64:
       goos: "darwin"
       goarch: "amd64"
       archlabel: "x86_64"
       goarm: "7"
+      fileext: ""
     armv6:
       goos: "linux"
       goarch: "arm"
       archlabel: "armv6"
       goarm: "6"
+      fileext: ""
     armv7:
       goos: "linux"
       goarch: "arm"
       archlabel: "armv7"
       goarm: "7"
+      fileext: ""
 
 steps:
 - script: |
@@ -67,7 +72,7 @@ steps:
   displayName: 'Get dependencies'
 
 - script: |
-    env GOOS=$(goos) GOARCH=$(goarch) GOARM=$(goarm) go build -v .
+    env GOOS=$(goos) GOARCH=$(goarch) GOARM=$(goarm) go build -v -o coapcmd-$(goos)-$(archlabel)$(filext) .
   workingDirectory: '$(modulePath)'
   displayName: 'Build'
 
