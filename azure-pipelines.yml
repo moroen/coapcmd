@@ -72,7 +72,7 @@ steps:
   displayName: 'Get dependencies'
 
 - script: |
-    env GOOS=$(goos) GOARCH=$(goarch) GOARM=$(goarm) go build -v -o coapcmd-$(goos)-$(archlabel)$(filext) .
+    env GOOS=$(goos) GOARCH=$(goarch) GOARM=$(goarm) go build -v -o coapcmd-$(goos)-$(archlabel)$(fileext) .
   workingDirectory: '$(modulePath)'
   displayName: 'Build'
 
