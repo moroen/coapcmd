@@ -28,7 +28,22 @@ strategy:
       goarch: "amd64"
       archlabel: "x86_64"
       goarm: "7"
-    
+    macos_x86_64:
+      goos: "darwin"
+      goarch: "amd64"
+      archlabel: "x86_64"
+      goarm: "7"
+    armv6:
+      goos: "linux"
+      goarch: "arm"
+      archlabel: "armv6"
+      goarm: "6"
+    armv7:
+      goos: "linux"
+      goarch: "arm"
+      archlabel: "armv7"
+      goarm: "7"
+
 steps:
 - script: |
     mkdir -p '$(GOBIN)'
