@@ -49,3 +49,6 @@ $ env GOOS=linux GOARCH=arm GOARM=5 go build # arm v5
 $ env GOOS=linux GOARCH=arm GOARM=6 go build # arm v6
 $ env GOOS=linux GOARCH=arm GOARM=7 go build # arm v7 (Pi 3)
 ```
+
+## Prebuild binaries
+Prebuild binaries for selected architectures are available under releases.
