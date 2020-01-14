@@ -95,6 +95,10 @@ func errorToStatus(err error) string {
 		return "Unauthorized"
 	case coap.MethodNotAllowed:
 		return "MethodNotAllowed"
+	case coap.ErrorReadTimeout:
+		return "ReadTimeoutError"
+	case coap.ErrorWriteTimeout:
+		return "WriteTimeoutError"
 	}
 	return "UnknownStatus"
 }
