@@ -8,7 +8,7 @@ import (
 	"net/url"
 	"strconv"
 
-	coap "github.com/moroen/gocoap"
+	coap "github.com/moroen/gocoap/v3"
 )
 
 var MalformedUriError = errors.New("Malformed uri")
