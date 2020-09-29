@@ -22,6 +22,14 @@ steps:
     make linux
   displayName: 'Linux'
 
+- script: |
+    make windows
+  displayName: 'Windows'
+
+- script: |
+    make arm
+  displayName: 'Arm'
+
 - task: CopyFiles@2
   inputs:
     Contents: 'coapcmd*'
