@@ -9,81 +9,31 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-variables:
-  GOBIN:  '$(GOPATH)/bin' # Go binaries path
-  GOROOT: '/usr/local/go1.11' # Go installation path
-  GOPATH: '$(system.defaultWorkingDirectory)/gopath' # Go workspace path
-  modulePath: '$(GOPATH)/src/github.com/$(build.repository.name)' # Path to the module's code
-  distPath: '$(system.defaultWorkingDirectory)/dist'
-
-strategy:
-  matrix:
-    linux_x86_64:
-      goos: "linux"
-      goarch: "amd64"
-      archlabel: "x86_64"
-      goarm: "7"
-      fileext: ""
-    windows_x86_64:
-      goos: "windows"
-      goarch: "amd64"
-      archlabel: "x86_64"
-      goarm: "7"
-      fileext: ".exe"
-    macos_x86_64:
-      goos: "darwin"
-      goarch: "amd64"
-      archlabel: "x86_64"
-      goarm: "7"
-      fileext: ""
-    armv6:
-      goos: "linux"
-      goarch: "arm"
-      archlabel: "armv6"
-      goarm: "6"
-      fileext: ""
-    armv7:
-      goos: "linux"
-      goarch: "arm"
-      archlabel: "armv7"
-      goarm: "7"
-      fileext: ""
-
-steps:
-- script: |
-    mkdir -p '$(GOBIN)'
-    mkdir -p '$(GOPATH)/pkg'
-    mkdir -p '$(modulePath)'
-    shopt -s extglob
-    shopt -s dotglob
-    mv !(gopath) '$(modulePath)'
-    echo '##vso[task.prependpath]$(GOBIN)'
-    echo '##vso[task.prependpath]$(GOROOT)/bin'
-  displayName: 'Set up the Go workspace'
-
-- script: |
-    go version
-    go get -v -t -d ./...
-    if [ -f Gopkg.toml ]; then
-        curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
-        dep ensure
-    fi
-  workingDirectory: '$(modulePath)'
-  displayName: 'Get dependencies'
-
-- script: |
-    env GOOS=$(goos) GOARCH=$(goarch) GOARM=$(goarm) go build -v -o coapcmd-$(goos)-$(archlabel)$(fileext) .
-  workingDirectory: '$(modulePath)'
-  displayName: 'Build'
-
-- script: |
-    mkdir -p $(distPath)
-    cp coapcmd* $(distPath)
-  workingDirectory: '$(modulePath)'
-  displayName: 'Move artifact'
-
-- task: PublishPipelineArtifact@0
+steps: 
+- task: GoTool@0
   inputs:
-    artifactName: 'coapcmd-$(goos)-$(archlabel)'
-    targetPath: '$(distPath)'
-  displayName: "Publish artifact"
+    version: '1.13.5'
+
+- script: |
+    make darwin
+  displayName: 'Darwin'
+
+- script: |
+    make linux
+  displayName: 'Linux'
+
+- script: |
+    make windows
+  displayName: 'Windows'
+
+- script: |
+    make arm
+  displayName: 'Arm'
+
+- task: CopyFiles@2
+  inputs:
+    Contents: 'coapcmd*'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+- task: PublishBuildArtifacts@1
+  inputs:
+     artifactName: coapcmd
