@@ -33,13 +33,8 @@ var noStatus bool
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "coapcmd",
-	Short: "A brief description of your application",
-	Long: `A longer description that spans multiple lines and likely contains
-examples and usage of using your application. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Short: "Command line utility for coap requests",
+	Long:  `Command line utility for coap requests with support for DTLS PSK`,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	//	Run: func(cmd *cobra.Command, args []string) { },
@@ -65,13 +60,13 @@ func init() {
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
-	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	// rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 	// rootCmd.Flags().String("ident", "", "Identity")
 	// rootCmd.Flags().String("key", "", "Key")
 
 	rootCmd.PersistentFlags().StringVar(&ident, "ident", "", "Identity")
 	rootCmd.PersistentFlags().StringVar(&key, "key", "", "Pre-shared key")
-	rootCmd.PersistentFlags().BoolVar(&noStatus, "nostatus", true, "Hide output of status")
+	// rootCmd.PersistentFlags().BoolVar(&noStatus, "nostatus", true, "Hide output of status")
 }
 
 // initConfig reads in config file and ENV variables if set.

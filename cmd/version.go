@@ -16,30 +16,34 @@ limitations under the License.
 package cmd
 
 import (
+	"fmt"
+
 	"github.com/spf13/cobra"
 )
 
-// putCmd represents the put command
-var putCmd = &cobra.Command{
-	Use:   "put URI PAYLOAD",
-	Short: "Send a COAP PUT request",
+var version = "v0.0.0"
+
+// getCmd represents the get command
+var versionCmd = &cobra.Command{
+	Use:   "version",
+	Short: "Show current version",
 	Long:  ``,
-	Args:  cobra.ExactArgs(2),
+	Args:  cobra.NoArgs,
 	Run: func(cmd *cobra.Command, args []string) {
-		printResponse(request(PUT, args[0], args[1]))
+		fmt.Println(version)
 	},
 }
 
 func init() {
-	// putCmd.Flags().StringVar(&ident, "ident", "", "Identity")
-	// putCmd.Flags().StringVar(&key, "key", "", "Pre-shared key")
-	rootCmd.AddCommand(putCmd)
+	rootCmd.AddCommand(versionCmd)
+
+	// Here you will define your flags and configuration settings.
 
 	// Cobra supports Persistent Flags which will work for this command
 	// and all subcommands, e.g.:
-	// putCmd.PersistentFlags().String("foo", "", "A help for foo")
+	// getCmd.PersistentFlags().String("foo", "", "A help for foo")
 
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
-	// putCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	// getCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
