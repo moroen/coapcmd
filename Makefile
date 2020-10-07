@@ -34,4 +34,5 @@ arm: $(deps)
 	env GOOS=linux GOARCH=arm GOARM=7 $(builder) -o coapcmd-linux-armv7 .
 	
 clean:
-	rm coapcmd*
+	-rm coapcmd*
+	-rm -rf vendor
