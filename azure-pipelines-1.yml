@@ -12,6 +12,6 @@ steps:
     version: '1.14'
 
 - script: |
-    go get -v github.com/moroen/coapcmd
+    go build
   displayName: 'Test'
 
