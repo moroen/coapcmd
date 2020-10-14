@@ -8,7 +8,7 @@ version = $(shell git tag --sort -v:refname | head -n1)
 
 deps = ./vendor
 
-builder = go build -v -ldflags "-X coapcmd/cmd.version=$(version)"
+builder = go build -v -ldflags "-X github.com/moroen/coapcmd/cmd.version=$(version)"
 
 default: $(deps)
 	$(builder) 
